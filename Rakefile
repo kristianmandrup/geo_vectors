@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "geo_vectors"
   gem.homepage = "http://github.com/kristianmandrup/geo_vectors"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Geo vector library for applying vectors to GeoPoints and for basic vector math}
+  gem.description = %Q{Works with geo_calc and other geo libraries}
   gem.email = "kmandrup@gmail.com"
   gem.authors = ["Kristian Mandrup"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
