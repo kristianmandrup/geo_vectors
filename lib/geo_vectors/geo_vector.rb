@@ -5,7 +5,6 @@ require 'geo_vectors/math'
 # Lots of lat/lng calculations
 # http://www.movable-type.co.uk/scripts/latlong.html
 
-# The Vector 
 class GeoVector
   include GeoPoint::AbstractPoint 
   include Math

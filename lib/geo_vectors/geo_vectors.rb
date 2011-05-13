@@ -1,5 +1,7 @@
 # Operations that apply on a collection of GeoVector
 module GeoVectors
+  include GeoVector
+
   def sum
     check_valid!
     map(:+)
