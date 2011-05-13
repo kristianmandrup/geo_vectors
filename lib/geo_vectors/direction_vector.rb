@@ -1,19 +1,20 @@
 class DirectionVector
   include GeoVector
+  include GeoDistance::Extract
   
-  attr_accessor :direction, :distance
+  attr_reader :direction # direction symbol :north, :N, :S, :SW, etc.
+  attr_reader :distance # GeoDistance object
 
-  def initialize direction, distance
-    raise ArgumentError, "Invalid direction: #{direction}" if !valid_directions.include?(direction)
-    raise ArgumentError, "First argument must be a GeoMagic::Distance, was: #{distance}" if !distance.kind_of?(GeoMagic::Distance)
-    @direction  = direction
-    @distance   = distance
+  def initialize dir, dist
+    direction = dir
+    distance  = extract_distance dist
   end
 
-  def self.valid_directions
-    [:north, :south, :east, :west, :NW, :NE, :SW, :SE]
+  def direction dir
+    raise ArgumentError, "Invalid direction: #{direction}" if !valid_direction? dir
+    @direction = dir    
   end
-
+ 
   def to_point_vector
     GeoMagic::PointVector.from_origin calc_point
   end

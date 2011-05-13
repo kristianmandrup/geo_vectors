@@ -1,27 +1,25 @@
-require 'sugar-high/kind_of'
-
-# This can be used to indicate a rectangle, with a latitude and logitude distance from the center in both directions to span out the rectangle.
 class BearingVector
   include GeoVector
+  include GeoDistance::Extract
   
-  attr_accessor :bearing, :long_distance
+  attr_reader :bearing
+  attr_reader :distance
 
   # should be Distance objects!
-  def initialize bearing, dist
-    @bearing  = bearing.to_deg
-    @distance = extract_distance dist
+  def initialize brng, dist
+    bearing   = brng
+    distance  = dist
   end      
 
-  def extract_distance dist
-    case dist
-    when is_numeric? dist
-      dist.km
-    when GeoDistance
-      dist
-    else
-      raise ArgumentError, "Could not convert #{dist} to a GeoDistance"
-    end
+  def bearing= brng
+    @bearing  = bearing.to_deg    
   end
+
+  def distance= dist
+    @distance = extract_distance dist
+  end
+
+
 
   def * arg
     multiply arg

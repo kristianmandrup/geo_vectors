@@ -1,12 +1,5 @@
-require 'geo_vectors/2d_point'
-require 'geo_vectors/math'
-
-
-# Lots of lat/lng calculations
-# http://www.movable-type.co.uk/scripts/latlong.html
-
 class GeoVector
-  include GeoPoint::AbstractPoint 
+  include GeoPoint::Abstract 
   include Math
    
   class << self
@@ -14,27 +7,6 @@ class GeoVector
 
     def pre_calculate?
       @pre_calculate == true
-    end      
-
-    def valid_units
-      [:feet, :meters, :kms, :miles, :radians]
-    end
-
-    def valid_unit? unit
-      valid_units.include? unit
-    end
-
-    # The default unit is assumed to be kms
-    # This can be changed
-    # Example:
-    #   GeoVector.default_unit = :km
-    
-    def default_unit
-      @default_unit || :kms
-    end
-
-    def default_unit= unit
-      @default_unit || :kms
     end
   end
 
