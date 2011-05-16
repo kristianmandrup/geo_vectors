@@ -1,46 +1,45 @@
 require 'spec_helper'
 
-# mock of GeoPoint
-class GeoP
-  include class GeoVector::Math::PointAdd
-
-  attr_accessor :lat, :lng 
-end
-
 describe GeoVector do
   describe 'PointAdd module' do
-    # Should mock the GeoPoint 
-
-    before do
-      @point = GeoPoint.new 0,1
-    end
+    context 'GeoPoint (0, 1)' do
+      let(:point) { GeoPoint.new 3, 5 }
     
-    context 'Simple vector at (1, 2) - x,y arg' do
-      let(:vector) { GeoVector.new 1, 2 }
+      context 'Simple vector (1, 2)' do
+        let(:vector) { GeoVector.new 1, 2 }
 
-      describe '#apply!' do
-        it 'should create a vector: latitude=1, longitude=1' do
-          @point.apply!(vector)
-          p2.lat.should == 1
-          p2.lng.should == 2
+        describe '#apply!' do
+          before :each do
+            @p = GeoPoint.new 3, 5
+          end
+          
+          it 'should Add the vector: latitude=1, longitude=1' do
+            @p.apply!(vector)
+            @p.lat.should == 4
+            @p.lng.should == 7
+          end
         end
-      end
 
-      describe '#+ (add)' do
-        it 'should add the vector and create a new point from result' do
-          p2 = @point + vector
-          p2.lat.should == 1
-          p2.lng.should == 2
+        describe '#+ (add)' do
+          it 'should add the vector and create a new point from result' do
+            p2 = point + vector
+            point.lat.should == 1 # no change
+            point.lng.should == 2
+            p2.lat.should == 4 # new point should be result of addition
+            p2.lng.should == 7
+          end
         end
-      end
 
-      describe '#<< (push)' do
-        it 'should push the vector onto the point creating a new point' do
-          p2 = @point << vector
-          p2.lat.should == 1
-          p2.lng.should == 2
+        describe '#<< (push)' do
+          it 'should add the vector and create a new point from result' do
+            p2 = point << vector
+            point.lat.should == 1 # no change
+            point.lng.should == 2
+            p2.lat.should == 4 # new point should be result of addition
+            p2.lng.should == 7
+          end
         end
-      end
+      end # context Simple vector      
     end
   end
 end
