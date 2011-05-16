@@ -1,6 +1,7 @@
 class DirectionVector
   include GeoVector
   include GeoDistance::Extract
+  include GeoDirection
   
   attr_reader :direction # direction symbol :north, :N, :S, :SW, etc.
   attr_reader :distance # GeoDistance object

@@ -1,4 +1,4 @@
-class GeoDistance
+class GeoDistance   
   module Extract
     def extract_distance dist
       case dist

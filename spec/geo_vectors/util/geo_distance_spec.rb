@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe GeoMagic::DistanceVector do
+describe GeoDistance do
   before do
     @long_dist  = -0.3.km
     @lat_dist   = 0.05.km
