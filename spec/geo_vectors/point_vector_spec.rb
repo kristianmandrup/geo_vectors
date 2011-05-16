@@ -1,3 +1,7 @@
+require 'spec_helper'
+
+# Same as GeoVector !!!
+
 describe PointVector do
   describe '#initialize' do
     it 'should initialize from an Array' do
