@@ -1,8 +1,10 @@
 require 'geo_vectors/util/geo_units'
+require 'active_support/inflector'
 
 class GeoDistance   
   module Unit
-    GeoUnits.valid_units.each do |unit|
+    extend GeoUnits    
+    valid_units.map(&:to_s).each do |unit|
       class_eval %{
         def #{unit.singularize}
           GeoDistance.new self, :#{unit}
