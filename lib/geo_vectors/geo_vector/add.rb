@@ -1,18 +1,16 @@
-class GeoVector 
-  module Addition    
-    def apply_to obj
-    end
+module GeoVector::Addition    
+  def apply_to obj
+  end
 
-    def << obj
-      apply_to arg        
-    end
+  def << obj
+    apply_to arg        
+  end
 
-    def + vector
-      apply_to arg        
-    end
+  def + vector
+    apply_to arg        
+  end
 
-    def - vector
-      apply_to vector.reverse
-    end
+  def - vector
+    apply_to vector.reverse
   end
 end

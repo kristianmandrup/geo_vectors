@@ -35,27 +35,27 @@ module GeoDirection
   
   def bearing_to_dir_map
     {
-      :_0   => :N,  # East
-      :_45  => :NE  # North East
-      :_90  => :N,  # North
-      :_135 => :NW  # North West
-      :_180 => :W   # West (2*90)
-      :_225 => :SW  # South West
-      :_270 => :S   # South (3*90)
-      :_315 => :SE  # South East
+      :_0   => :N,    # East
+      :_45  => :NE,   # North East
+      :_90  => :N,    # North
+      :_135 => :NW,   # North West
+      :_180 => :W,    # West (2*90)
+      :_225 => :SW,   # South West
+      :_270 => :S,    # South (3*90)
+      :_315 => :SE    # South East
     }
   end  
   
   def dir_to_bearing_map
     {
-      :E  => 0,   # East
-      :NE => 45   # North East
-      :N  => 90,  # North
-      :NW => 135  # North West
-      :W  => 180  # West (2*90)
-      :SW => 225  # South West
-      :S  => 270  # South (3*90)
-      :SE => 315  # South East
+      :E  => 0,     # East
+      :NE => 45,    # North East
+      :N  => 90,    # North
+      :NW => 135,   # North West
+      :W  => 180,   # West (2*90)
+      :SW => 225,   # South West
+      :S  => 270,   # South (3*90)
+      :SE => 315    # South East
     }
   end  
 end

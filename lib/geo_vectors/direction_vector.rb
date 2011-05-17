@@ -1,3 +1,5 @@
+require 'geo_vectors/geo_vector'
+
 class DirectionVector
   include GeoVector
   include GeoDistance::Extract

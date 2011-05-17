@@ -1,7 +1,12 @@
+require 'geo_vectors/geo_vector'
+require 'proxy_party'
+
 class PointVector
   include GeoVector
   # The vector from the origin O = (0,0) to the point A = (2,3) is simply written as (2,3), the unit is degrees.    
   attr_accessor :point
+
+  proxy :point
   
   def initialize *args
     @point = GeoPoint.new *args
@@ -46,10 +51,6 @@ class PointVector
   def vector_distance
     GeoMagic::DistanceVector.new length(:latitude), length(:longitude), :lat_factor => lat_factor
   end        
-
-  def lat_factor
-    p0.middle_point(p1).latitude_factor
-  end
 
   # distance between points p0 and p1 that define the vector
 

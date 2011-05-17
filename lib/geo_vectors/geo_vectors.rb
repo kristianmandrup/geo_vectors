@@ -2,15 +2,15 @@
 module GeoVectors
   include GeoVector
 
-  def sum
-    check_valid!
-    map(:+)
-  end
+  # def sum
+  #   check_valid!
+  #   self.map(:"+")
+  # end
   
-  def random
-    check_valid!    
-    [rand(self.size)]
-  end
+  # def random
+  #   check_valid!    
+  #   [rand(self.size)]
+  # end
 
   protected
   
@@ -19,6 +19,6 @@ module GeoVectors
   end
   
   def valid?
-    if !self.kind_of?(Array) && self.only_kinds_of?(GeoVector)
+    kind_of?(Array) && only_kinds_of?(GeoVector)
   end
 end  
