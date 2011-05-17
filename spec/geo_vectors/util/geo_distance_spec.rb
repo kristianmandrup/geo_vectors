@@ -13,7 +13,7 @@ describe GeoDistance do
     its(:lat_distance)  { should > 0 }
     
     describe '#multiply' do    
-      it "should multiply the radius distance and return new circle" do
+      it "should multiply and return a new distance" do
         old_dist = subject.long_distance
         dvec = subject.multiply(0.5) 
         subject.long_distance.should == old_dist        
@@ -21,8 +21,17 @@ describe GeoDistance do
       end
     end
 
+    describe '#*' do    
+      it "should multiply and return a new distance" do
+        old_dist = subject.long_distance
+        dvec = subject * 0.5
+        subject.long_distance.should == old_dist        
+        dvec.long_distance.should < subject.long_distance
+      end
+    end
+
     describe '#multiply!' do
-      it "should multiply the radius distance" do
+      it "should multiply the distance itself" do
         old_dist = subject.long_distance
         subject.multiply!(5) 
         subject.long_distance.should > old_dist
