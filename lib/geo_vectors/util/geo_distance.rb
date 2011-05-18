@@ -5,12 +5,13 @@ class GeoDistance
   module Unit
     extend GeoUnits    
     valid_units.map(&:to_s).each do |unit|
+      one_unit = unit.singularize
       class_eval %{
-        def #{unit.singularize}
+        def #{one_unit}
           GeoDistance.new self, :#{unit}
         end          
-        alias_method :to_#{unit}, #{unit}
-        alias_method :#{unit.pluralize}, #{unit}
+        alias_method :to_#{unit}, :#{one_unit}
+        alias_method :#{unit.pluralize}, :#{one_unit}
       }
     end
   end

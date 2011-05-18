@@ -13,7 +13,13 @@ class PointVector
   end
 
   def length unit = :kms
-    [0, 0].geo_point.distance_to(self.point).as(unit)
+    origin.distance_to(point).as(unit)
+  end
+
+  protected
+  
+  def origin
+    [0, 0].geo_point
   end
 end
 

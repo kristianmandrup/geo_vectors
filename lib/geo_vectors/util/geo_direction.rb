@@ -12,21 +12,22 @@ module GeoDirection
   end
 
   def dir_to_bearing dir
-    dir_to_bearing_map dir
+    dir = dir_to_bearing_map[dir]
+    raise "No bearing for direction #{dir} could be found" if !dir
+    dir
   end
 
   def bearing_to_dir brng
-    dir = bearing_to_dir_map :"_#{brng}"
-    return dir if dir
-    raise "No direction could be for the bearing #{brng}"
+    dir = bearing_to_dir_map[:"_#{brng}"]
+    raise "No direction could be for the bearing #{brng}" if !dir
+    dir
   end
 
   def get_valid_direction dir
     return dir_map[dir] if dir_map[dir]
     raise "Not a valid direction: #{dir}" if !directions.include? dir
     dir
-  end
-  
+  end  
 
   def to_bearing_vector direction, distance
     BearingVector.new dir_to_bearing(direction), distance
@@ -34,7 +35,7 @@ module GeoDirection
 
   def to_point_vector direction, distance
     # dist degrees
-    dd = to_deg(distance.to_radians)
+    dd = distance.to_deg
     
     lat, lng = case direction
     when :N

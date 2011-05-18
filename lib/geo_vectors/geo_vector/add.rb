@@ -1,16 +1,14 @@
-module GeoVector::Addition    
-  def apply_to obj
-  end
+module GeoVector
+  module Add
+    def add vector
+      raise '#add method must be implemented by including class'
+    end
 
-  def << obj
-    apply_to arg        
-  end
+    alias_method :<<, :add
+    alias_method :+,  :add
 
-  def + vector
-    apply_to arg        
-  end
-
-  def - vector
-    apply_to vector.reverse
+    def - vector
+      add vector.reverse
+    end
   end
 end

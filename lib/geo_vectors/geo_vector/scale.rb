@@ -1,7 +1,7 @@
 module GeoVector::Scale
   def scale scalar
-    x = x * scalar
-    y = y * scalar
+    lat = lat * scalar
+    lng = lng * scalar
   end      
 
   def * scalar

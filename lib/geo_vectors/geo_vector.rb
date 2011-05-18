@@ -1,4 +1,5 @@
 require 'geo_calc'
+require 'geo_vectors/core_ext'
 require 'geo_vectors/geo_vector/math'
 require 'geo_vectors/util'
 
