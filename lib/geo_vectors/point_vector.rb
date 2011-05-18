@@ -12,6 +12,22 @@ class PointVector
     @point = GeoPoint.new *args
   end
 
+  # return new point from adding vector to point
+  def add_to_point point
+    dest = point.dup 
+    dest.lat = lat + point.lat
+    dest.lng = lng + point.lng
+    dest
+  end
+
+  # add vector directly to point (destructive update)
+  def add_to_point! point
+    dest = destination_point bearing, distance.in_kms
+    point.lat = dest.lat
+    point.lng = dest.lng
+    point
+  end
+
   def apply_to arg
     raise ArgumentError, "Argument must be a GeoMagic::Point or a GeoMagic::PointVector" if !arg.any_kind_of?(GeoMagic::Vector, GeoMagic::PointVector)
     case arg

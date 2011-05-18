@@ -10,5 +10,8 @@ module GeoVector
   # - Two GeoPoints p1, p2 : vector calculated as the difference
   # - A GeoDirection : point calculated by applying direction to origin
 
-  attr_reader :unit  
+  attr_reader :unit
+  
+  def add_to_point point
+  end
 end

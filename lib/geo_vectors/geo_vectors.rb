@@ -2,16 +2,12 @@
 module GeoVectors
   include GeoVector
 
-  def sum
-    check_valid!
-    map(&:"+")
+  def add_to_point point
+    vectors.each do |v|
+      point += v
+    end
   end
   
-  def random
-    check_valid!    
-    [rand(size)]
-  end
-
   protected
   
   def check_valid!

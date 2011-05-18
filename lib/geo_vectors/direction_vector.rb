@@ -13,9 +13,28 @@ class DirectionVector
     distance  = extract_distance dist
   end
 
+  # return new point from adding vector to point
+  def add_to_point point
+    vec = to_bearing_vector
+    point.destination_point vec.bearing, vec.distance.in_kms
+  end
+
+  # add vector directly to point (destructive update)
+  def add_to_point! point
+    vec = to_bearing_vector
+    dest = point.destination_point vec.bearing, vec.distance.in_kms
+    point.lat = dest.lat
+    point.lng = dest.lng
+    point
+  end
+
   def direction dir
     raise ArgumentError, "Invalid direction: #{direction}" if !valid_direction? dir
-    @direction = dir    
+    @direction = dir
+  end
+
+  def to_bearing_vector
+    BearingVector.new dir_to_bearing(direction), distance
   end
  
   def to_point_vector
