@@ -1,9 +1,76 @@
 require 'geo_vectors/util/geo_units'
 require 'active_support/inflector'
 
-class GeoDistance   
+class GeoDistance
+  include NumericCheckExt
+  include GeoUnits 
+  include Comparable
+  
+  attr_accessor :unit, :number
+  
+  def initialize number, unit = :kms
+    check_unit! unit
+    check_numeric! number 
+
+    @unit = unit
+    @number = number
+  end
+
+  def * factor  
+    dist = self.dup
+    dist.number *= factor
+    dist
+  end
+
+  def / factor  
+    dist = self.dup
+    dist.number /= factor
+    dist
+  end
+
+  # compare 2 distances
+  def <=> dist
+    dist = extract_distance(dist).as(unit)
+    if number < dist.number
+      -1
+    elsif number > dist.number
+      1
+    else
+      0
+    end
+  end
+
+  def convert_to_meters
+    (unit == :radians) ? radians_to(:meters) : number / meters_map[unit]
+  end
+
+  # convert to unit (see GeoMagic)
+  def as unit
+    check_unit! unit
+    dist = self.dup
+    dist.number = convert_to_meters * meters_map[unit]
+    dist.unit = unit
+    dist    
+  end
+
+  def radians_to unit
+    check_unit! unit
+    earth_radius[unit] * number
+  end
+
+  protected
+
+  include GeoUnits::UnitMaps
+
+  # converts a number into a distance of same unit  
+  def extract_distance dist
+    is_numeric?(dist) ? dist.send(unit) : dist  
+  end
+
   module Unit
-    extend GeoUnits    
+    extend GeoUnits
+    extend GeoUnits::UnitMaps
+        
     valid_units.map(&:to_s).each do |unit|
       one_unit = unit.singularize
       class_eval %{
@@ -13,7 +80,12 @@ class GeoDistance
         alias_method :to_#{unit}, :#{one_unit}
         alias_method :#{unit.pluralize}, :#{one_unit}
       }
-    end
+    end   
+    
+    def [] key
+      raise ArgumentError, "Invalid unit key #{key}" if !respond_to? key
+      earth_radius[key] * self
+    end    
   end
 
   module Extract
@@ -29,5 +101,5 @@ class GeoDistance
     end
   end
   
-  include Extract 
+  include Extract  
 end

@@ -37,7 +37,7 @@ module GeoDirection
     # dist degrees
     dd = distance.to_deg
     
-    lat, lng = case direction
+    lng, lat = case direction
     when :N
       [0, -dd]
     when :S
@@ -59,6 +59,10 @@ module GeoDirection
   end
 
   protected
+  
+  def check_direction! dir
+    raise ArgumentError, "Not a valid direction: #{dir}" if !valid_direction?
+  end   
 
   def dir_map 
     {:east => :E, :north => :N, :west => :W, :south => :S}

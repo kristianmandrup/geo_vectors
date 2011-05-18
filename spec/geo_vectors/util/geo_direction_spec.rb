@@ -60,7 +60,7 @@ describe GeoDirection do
         it 'should direction and distance to a bearing vector' do
           pvec = @gd.to_point_vector(:E, 2.kms)
           pvec.should be_a(PointVector)
-          pvec.lng.should == 2.kms #.to_degrees # x
+          pvec.lng.should > 0
           pvec.lat.should == 0 # y
         end
       end

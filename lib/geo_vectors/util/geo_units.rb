@@ -19,4 +19,30 @@ module GeoUnits
   def default_unit= unit
     @default_unit || :kms
   end
+  
+  module UnitMaps
+
+    def earth_radius
+      {
+        :feet => 20895592, 
+        :meters => 6371000,
+        :kms => 6371, 
+        :miles => 3956
+      }
+    end
+
+    def meters_map
+      {
+       :feet => 3.2808,
+       :meters => 1,
+       :kms => 0.001,
+       :miles => 0.00062137,
+       :radians => 111170
+      }
+    end
+  end
+  
+  def check_unit! unit
+    raise ArgumentError, "Not a valid unit" if !valid_unit? unit
+  end   
 end
