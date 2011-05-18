@@ -13,55 +13,12 @@ class BearingVector
     distance  = dist
   end      
 
-  # return new point from adding vector to point
-  def add_to_point point
-    destination_point bearing, distance.in_kms
-  end
-
-  # add vector directly to point (destructive update)
-  def add_to_point! point
-    dest = destination_point bearing, distance.in_kms
-    point.lat = dest.lat
-    point.lng = dest.lng
-    point
-  end
-
+  # normalize to within 0-360 degrees
   def bearing= brng
-    @bearing  = bearing.to_deg    
+    @bearing  = to_degrees brng
   end
 
   def distance= dist
     @distance = extract_distance dist
-  end
-
-  def * arg
-    multiply arg
-  end
-
-  def / arg
-    multiply(1/arg)
-  end
-
-  def multiply arg
-    vect_dist = new lat_distance.clone, long_distance.clone
-    vect_dist.multiply! arg
-  end
-
-  def multiply! arg
-    factors = case arg
-    when Numeric
-      [arg, arg]
-    when Hash
-      [factor(arg, lat_symbols), factor(arg, long_symbols)]
-    else
-      raise ArgumentError, "Argument must be a Fixnum or a Hash specifying factor to multiply latitude and/or longitude with, was #{arg.class}"
-    end      
-    multiply_lat factors.first
-    multiply_long factors.last
-    self
-  end
-
-  def radius center
-    GeoMagic::Radius.send :"create_rectangular", center, self
   end
 end

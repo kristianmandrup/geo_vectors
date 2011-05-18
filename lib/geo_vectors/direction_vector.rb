@@ -1,89 +1,27 @@
 require 'geo_vectors/geo_vector'
+require 'geo_vectors/direction_vector/add'
 
 class DirectionVector
   include GeoVector
   include GeoDistance::Extract
-  include GeoDirection
+  include GeoDirection  
+  include Add
   
-  attr_reader :direction # direction symbol :north, :N, :S, :SW, etc.
+  attr_reader :direction # direction symbol :N, :S, :SW, etc.
   attr_reader :distance # GeoDistance object
 
   def initialize dir, dist
     direction = dir
-    distance  = extract_distance dist
+    distance  = dist
   end
 
-  # return new point from adding vector to point
-  def add_to_point point
-    vec = to_bearing_vector
-    point.destination_point vec.bearing, vec.distance.in_kms
-  end
-
-  # add vector directly to point (destructive update)
-  def add_to_point! point
-    vec = to_bearing_vector
-    dest = point.destination_point vec.bearing, vec.distance.in_kms
-    point.lat = dest.lat
-    point.lng = dest.lng
-    point
-  end
-
-  def direction dir
+  def direction= dir
     raise ArgumentError, "Invalid direction: #{direction}" if !valid_direction? dir
-    @direction = dir
+    @direction = get_valid_direction dir
   end
 
-  def to_bearing_vector
-    BearingVector.new dir_to_bearing(direction), distance
-  end
- 
-  def to_point_vector
-    GeoMagic::PointVector.from_origin calc_point
-  end
-
-  ## move should use either + or << operator
-  def apply_to arg
-    raise ArgumentError, "Argument must be a GeoMagic::Point or a GeoMagic::PointVector" if !arg.any_kind_of?(GeoMagic::Vector, GeoMagic::PointVector)
-    case arg
-    when GeoMagic::Point
-      point = arg
-      v = calc_point
-      point.move(v.latitude, v.longitude)
-    when GeoMagic::PointVector
-      pv = arg
-      v = calc_point
-      pv.latitude   = pv.latitude + v.longitude
-      pv.longitude  = pv.longitude + v.longitude
-      pv
-    end
-  end
-
-  protected
-
-  def calc_point
-    va = 45
-    c = distance
-    a = c * 0.7071067770164218 # Math.sin(45 * Math.PI / 180);
-    b = Math.sqrt((c * c) - (a * a));                  
-
-    lat, lng = case direction
-    when :north
-      [0, -distance]
-    when :south
-      [0, distance]
-    when :west
-      [-distance, 0]
-    when :east
-      [distance, 0]
-    when :NW
-      [a, b]
-    when :SW
-      [a, -b]
-    when :NE
-      [-a, b]
-    when :SE
-      [-a, -b]
-    end
-    GeoMagic::Point.new lat, lng  
+  def distance= dist
+    raise ArgumentError, "Invalid direction: #{distance}" if !valid_distance? dist
+    @distance = extract_distance dist
   end
 end
