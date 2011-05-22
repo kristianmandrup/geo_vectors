@@ -4,6 +4,7 @@ describe BearingVector do
   describe '#initialize' do
     it 'should create Bearing Vector from distance and degrees' do
       v = BearingVector.new 2.km, 32
+      v.should be_a BearingVector
       v.distance.should == 2.km
       v.bearing.should == 32      
     end      
@@ -24,12 +25,10 @@ describe BearingVector do
       lambda {BearingVector.new 2}.should raise_error
     end      
   end
-      
-  context 'Simple Bearing Vector 2 km at 32 degrees' do
-    let(:vector) { BearingVector.new 32, 2.km }
-    
-    it 'should create a GeoVector: x=1, y=1' do
-      vector.should be_a(BearingVector)
-    end
-  end
+
+  describe '#to_s' do
+    it 'should print distance and bearing' do
+      BearingVector.new(2, 32).to_s.should match /distance: 2 kms, bearing: 32 degrees/      
+    end    
+  end      
 end

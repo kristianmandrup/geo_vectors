@@ -23,15 +23,5 @@ describe DirectionVector do
     it 'should NOT create Direction Vector from 1 argument' do
       lambda {DirectionVector.new 1}.should raise_error
     end      
-  end  
-  
-  context 'Simple vector 5.km North' do
-    let(:vector) { DirectionVector.new 2.km, :north }
-    
-    it 'should create a DirectionVector 2.km North' do
-      vector.should be_a(DirectionVector)
-      vector.distance.should == 2.km
-      vector.direction.should == :N
-    end
   end
 end

@@ -1,22 +1,20 @@
 require 'spec_helper'
 
-# Same as GeoVector !!!
-
 describe PointVector do
   describe '#initialize' do
     it 'should initialize from an Array' do
-      vec = [1, 2].vector
-      vec.should be_a(PointVector)
+      vec = [1, 2].point_vector
+      vec.should be_a PointVector
     end
   end
 
   context 'Simple vector at (1, 2) - x,y arg' do
-    let(:vector) { GeoVector.new 1, 2 }
+    let(:vector) { PointVector.new 1, 2 }
     
-    it 'should create a GeoVector: x=1, y=1' do
-      vector.should be_a(GeoVector)
-      vector.x.should == 1
-      vector.y.should == 2
+    it 'should create a PointVector: x=1, y=1' do
+      vector.should be_a PointVector
+      vector.y.should == 1          
+      vector.x.should == 2      
     end
 
     it 'should create a vector: lat=1, lng=1' do
@@ -31,70 +29,76 @@ describe PointVector do
   end
 
   context 'Simple vector at (1, 2) - Array arg' do
-    let(:vector) { GeoVector.new [1, 2] }
+    let(:vector) { PointVector.new [1, 2] }
 
     it 'should create a vector: x=1, y=2' do
-      vector.x.should == 1
-      vector.y.should == 2
+      vector.y.should == 1
+      vector.x.should == 2
     end
   end
 
   context 'Vectors from points: p1 = (1,2) ; p2 = (4,6) ' do
     before do
       @p1 = GeoPoint.new 1,2
-      @p1 = GeoPoint.new 4,6      
+      @p2 = GeoPoint.new 4,6      
     end
 
     it 'should create a vector between the points p1 and p2' do
-      @vec = GeoVector.new @p1, @p2
-      @vec.x.should == 3
-      @vec.y.should == 4      
+      @vec = PointVector.new @p1, @p2
+      @vec.y.should == 3
+      @vec.x.should == 4      
     end
   end
 
-  context 'Simple vector at (1, 2) and a Direction' do
-    before do
-      @p1 = GeoPoint.new 1,2
-      @east_4 = GeoDirection.new 4, :east
-    end
-
-    it 'should create a vector between a point and a new point generated from applying the direction to the point' do
-      @vec = GeoVector.new @p1, @east_4
-      @vec.x.should == 1
-      @vec.y.should == 6      
+  pending 'TODO' do
+    context 'Simple vector at (1, 2) and a direction vector' do
+      before do
+        @p1     = GeoPoint.new 1,2
+        @east_4 = DirectionVector.new 4.km, :east
+      end
+  
+      it 'should create a vector between a point and a new point generated from applying the direction to the point' do
+        @vec = PointVector.new @p1, @east_4
+        @vec.x.should == 1
+        @vec.y.should == 6      
+      end
     end
   end
 
   context 'Simple vector at (1, 2) - GeoPoint arg' do
-    let(:vector) { GeoVector.new [1, 2].to_point }
+    let(:vector) { PointVector.new [1, 2].to_point }
 
-    it 'should create a vector: x=1, y=2' do
-      vector.x.should == 1
-      vector.y.should == 2
-    end
-
-    describe '#distance' do  
+    describe '#length' do  
       it 'should have a distance between 1 and 2' do
-        vector.x.should == 1
-        vector.y.should == 2
-        vector.distance.should be_between(1,2)
+        kms = vector.length
+        kms.should be_between(240, 260)
       end
     end
-
+  
+    describe '#distance' do  
+      it 'should have a distance between 1 and 2' do
+        dist = vector.distance
+        dist.should be_a GeoDistance
+        dist.in_meters.should be_between(240000, 260000)
+      end
+    end
+  
     describe '#point=' do
       before do
-        @vec = GeoVector.new [1, 2].to_point
+        @vec = PointVector.new [1, 2].to_point
       end
       
       it 'should have a distance between 1 and 2' do        
-        @vec.x.should == 1
-        @vec.point = 2,3
-        @vec.x.should == 2      
-        @vec.y.should == 3
+        @vec.y.should == 1
+        @vec.x.should == 2
+        @vec.point = 2, 3
+        @vec.y.should == 2      
+        @vec.x.should == 3
       end
       
       it 'should return a new distance between 3 and 5' do
-        @vec.distance.should be_between(3,5)
+        kms = @vec.distance.in_kms
+        kms.should be_between(240, 250)
       end
     end
   end  

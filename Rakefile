@@ -23,7 +23,8 @@ Jeweler::Tasks.new do |gem|
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
 
   gem.add_runtime_dependency      'proxy_party',  '>= 0.2.1'
-  gem.add_runtime_dependency      'geo_calc',     '>= 0.5.1'
+  gem.add_runtime_dependency      'sugar_high',   '>= 0.4.1'
+  gem.add_runtime_dependency      'geo_calc',     '>= 0.5.2'
   gem.add_development_dependency  'rspec',        '>= 2.5.0'
 end
 Jeweler::RubygemsDotOrgTasks.new

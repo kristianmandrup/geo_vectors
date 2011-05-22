@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class GeoDirectionClass
-  extend GeoDirection
+  extend GeoDirection::Methods
 end
 
 class Fixnum

@@ -4,7 +4,7 @@ require 'geo_vectors/direction_vector/add'
 class DirectionVector
   include GeoVector
   include GeoDistance::Extract
-  include GeoDirection  
+  include GeoDirection
   include Add
   
   attr_reader :direction # direction symbol :N, :S, :SW, etc.
@@ -23,4 +23,16 @@ class DirectionVector
   def distance= dist
     @distance = extract_distance dist
   end
+  
+  def unit
+    distance.unit
+  end
+    
+  def as_bearing_vector 
+    to_bearing_vector direction, distance
+  end    
+
+  def as_point_vector 
+    to_point_vector direction, distance
+  end    
 end

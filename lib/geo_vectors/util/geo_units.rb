@@ -1,24 +1,33 @@
 module GeoUnits
-  def valid_units
-    [:feet, :meters, :kms, :miles, :radians]
-  end
+  module Methods
+    def valid_units
+      [:feet, :meters, :kms, :miles, :radians]
+    end
 
-  def valid_unit? unit
-    valid_units.include? unit
-  end
+    def valid_unit? unit
+      valid_units.include? unit
+    end
 
-  # The default unit is assumed to be kms
-  # This can be changed
-  # Example:
-  #   GeoVector.default_unit = :km
+    # The default unit is assumed to be kms
+    # This can be changed
+    # Example:
+    #   GeoVector.default_unit = :km
 
-  def default_unit
-    @default_unit || :kms
-  end
+    def default_unit
+      @default_unit || :kms
+    end
 
-  def default_unit= unit
-    @default_unit || :kms
+    def default_unit= unit
+      @default_unit || :kms
+    end
+
+    def check_unit! unit
+      raise ArgumentError, "Not a valid unit" if !valid_unit? unit
+    end   
   end
+  
+  include Methods
+  extend Methods
   
   module UnitMaps
 
@@ -40,9 +49,5 @@ module GeoUnits
        :radians => 111170
       }
     end
-  end
-  
-  def check_unit! unit
-    raise ArgumentError, "Not a valid unit" if !valid_unit? unit
-  end   
+  end  
 end

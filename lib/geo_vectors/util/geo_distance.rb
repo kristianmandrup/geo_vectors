@@ -16,6 +16,10 @@ class GeoDistance
     @number = number
   end
 
+  def to_s
+    "distance: #{number} #{unit}"
+  end
+
   def * factor  
     dist = self.dup
     dist.number *= factor
@@ -53,6 +57,25 @@ class GeoDistance
     dist    
   end
 
+  # from GeoUnits    
+  GeoUnits.valid_units.map(&:to_s).each do |unit|
+    one_unit = unit.singularize
+    class_eval %{
+      def #{one_unit}
+        as(:#{unit}).number
+      end          
+
+      def as_#{unit}
+        as(:#{unit})
+      end          
+
+      alias_method :to_#{unit}, :#{one_unit}
+      alias_method :in_#{unit}, :#{one_unit}
+      alias_method :#{unit.pluralize}, :#{one_unit}
+    }
+  end   
+
+
   def radians_to unit
     check_unit! unit
     earth_radius[unit] * number
@@ -67,10 +90,12 @@ class GeoDistance
     is_numeric?(dist) ? dist.send(unit) : dist  
   end
 
+  # used to extend Fixnum and Float
   module Unit
     extend GeoUnits
     extend GeoUnits::UnitMaps
-        
+    
+    # from GeoUnits    
     valid_units.map(&:to_s).each do |unit|
       one_unit = unit.singularize
       class_eval %{
@@ -78,6 +103,8 @@ class GeoDistance
           GeoDistance.new self, :#{unit}
         end          
         alias_method :to_#{unit}, :#{one_unit}
+        alias_method :in_#{unit}, :#{one_unit}
+        alias_method :as_#{unit}, :#{one_unit}
         alias_method :#{unit.pluralize}, :#{one_unit}
       }
     end   

@@ -45,5 +45,19 @@ describe GeoDistance do
         (1000.meters == 1.km).should be_true
       end
     end
+    
+    describe '#in_meters' do
+      it "should be that 5.km in meters is 5000" do
+        5.km.in_meters.should == 5000
+      end
+    end
+
+    describe '#in_kms' do
+      it "should be that 5000 meters in kms is 5" do
+        dist = 5000.meters
+        dist.should be_a GeoDistance
+        dist.in_kms.should == 5
+      end
+    end      
   end
 end
