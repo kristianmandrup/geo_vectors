@@ -10,18 +10,17 @@ class DirectionVector
   attr_reader :direction # direction symbol :N, :S, :SW, etc.
   attr_reader :distance # GeoDistance object
 
-  def initialize dir, dist
-    direction = dir
-    distance  = dist
+  def initialize dist, dir
+    dist, dir = [dir, dist] if dir.kind_of? GeoDistance
+    @distance   = extract_distance dist
+    @direction  = get_valid_direction dir
   end
 
   def direction= dir
-    raise ArgumentError, "Invalid direction: #{direction}" if !valid_direction? dir
     @direction = get_valid_direction dir
   end
 
   def distance= dist
-    raise ArgumentError, "Invalid direction: #{distance}" if !valid_distance? dist
     @distance = extract_distance dist
   end
 end

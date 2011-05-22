@@ -9,8 +9,9 @@ class BearingVector
   attr_reader :distance
 
   # should be Distance objects!
-  def initialize brng, dist
-    @bearing   = brng
+  def initialize dist, bearing
+    dist, bearing = [bearing, dist] if bearing.kind_of? GeoDistance
+    @bearing   = bearing
     @distance  = dist
   end      
 
