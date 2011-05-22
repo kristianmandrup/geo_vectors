@@ -2,9 +2,7 @@ require 'geo_vectors/geo_vector'
 require 'sugar-high/kind_of'
 require 'proxy_party'
 
-class PointVector
-  include GeoVector
-  include Add
+class PointVector < GeoVector
   include GeoCalc
 
   attr_accessor :point
@@ -29,6 +27,45 @@ class PointVector
 
   def x; lng; end
   def y; lat; end
+
+  def add vector
+    raise ArgumentException, "The object added must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)
+    case vector
+    when PointVector
+      add_to_point vector
+    else
+      GeoVectors.new self, vector
+    end
+  end
+  alias_method :<<, :add
+  alias_method :+,  :add
+
+  def add! vector
+    raise ArgumentException, "The object added must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)
+    case vector
+    when PointVector
+      v2 = add_to_point vector
+      self.point = v2.to_arr
+      self      
+    else
+      GeoVectors.new self, vector
+    end
+  end
+
+  # return new point from adding vector to point
+  def add_to_point point
+    dest = point.dup
+    dest.lat = lat + point.lat 
+    dest.lng = lng + point.lng
+    dest
+  end
+
+  # add vector directly to point (destructive update)
+  def add_to_point! point
+    point.lat = lat + point.lat 
+    point.lng = lng + point.lng
+    point
+  end
 
   protected
 

@@ -1,7 +1,6 @@
 require 'geo_vectors/geo_vector'
 
-class BearingVector
-  include GeoVector
+class BearingVector < GeoVector
   include GeoDistance::Extract
   include GeoUnits::Converter
   

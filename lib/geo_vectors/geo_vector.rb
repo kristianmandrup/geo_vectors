@@ -1,18 +1,38 @@
 require 'geo_calc'
 require 'geo_vectors/core_ext'
-require 'geo_vectors/geo_vector/math'
 require 'geo_vectors/util'
 
-module GeoVector
-  # A Vector consist of the coordinates (x, y) and is always calculated from the origin (0,0)
-  # Each time the vector is updated (either x or y) it should recalculate its distance from origin if the class variable 'precalculate' is set
-  # Arguments:
-  # - A single GeoPoint
-  # - Two GeoPoints p1, p2 : vector calculated as the difference
-  # - A GeoDirection : point calculated by applying direction to origin
+# A Vector consists of info that can transform a point into a destination point given some operation on that info  
+class GeoVector
+  attr_reader :unit  
 
-  attr_reader :unit
-  
-  def add_to_point point
+  def initialize
+    @unit = :degrees
   end
+  
+  def add vector
+    raise '#add method must be implemented by including class'
+  end
+  alias_method :<<, :add
+  alias_method :+,  :add
+
+  def - vector
+    add vector.reverse
+  end
+  
+  def scale scalar
+    lat = lat * scalar
+    lng = lng * scalar
+  end      
+
+  def * scalar
+    scale scalar
+  end 
+  alias_method :enhance, :*
+  alias_method :grow_by, :*
+
+  def / scalar
+    scale (1.0 / scalar)
+  end
+  alias_method :reduce, :/    
 end

@@ -1,11 +1,8 @@
 require 'geo_vectors/geo_vector'
-require 'geo_vectors/direction_vector/add'
 
-class DirectionVector
-  include GeoVector
+class DirectionVector < GeoVector
   include GeoDistance::Extract
   include GeoDirection
-  include Add
   
   attr_reader :direction # direction symbol :N, :S, :SW, etc.
   attr_reader :distance # GeoDistance object
@@ -34,5 +31,21 @@ class DirectionVector
 
   def as_point_vector 
     to_point_vector direction, distance
-  end    
+  end 
+  
+  # return new point from adding vector to point
+  def add_to_point point
+    vec = as_bearing_vector
+    point.destination_point vec.bearing, vec.distance.in_kms
+  end
+
+  # add vector directly to point (destructive update)
+  def add_to_point! point
+    vec = as_bearing_vector
+    dest = point.destination_point vec.bearing, vec.distance.in_kms
+    point.lat = dest.lat
+    point.lng = dest.lng
+    point
+  end
+     
 end

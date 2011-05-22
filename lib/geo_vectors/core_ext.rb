@@ -8,11 +8,14 @@ class Float
   include GeoDistance::Unit
 end
 
-module GeoVector::Macros
-  def point_vector
-    PointVector.new self.geo_point
+class GeoVector
+  module Macros
+    def point_vector
+      PointVector.new self.geo_point
+    end
+    alias_method :vector, :point_vector
+    alias_method :p_vector, :point_vector
   end
-  alias_method :vector, :point_vector
 end
 
 class Array

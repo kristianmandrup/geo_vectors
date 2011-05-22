@@ -1,6 +1,6 @@
 # Operations that apply on a collection of GeoVector
 module GeoVectors
-  include GeoVector
+  # include GeoVector
 
   def add_to_point point
     vectors.each do |v|
