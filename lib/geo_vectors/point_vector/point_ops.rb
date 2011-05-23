@@ -2,10 +2,7 @@ class PointVector < GeoVector
   module PointOps
     # return new point from adding vector to point
     def add_to_point point
-      dest = point.dup
-      dest.lat = lat + point.lat 
-      dest.lng = lng + point.lng
-      dest
+      add_to_point! point.dup
     end
 
     # add vector directly to point (destructive update)

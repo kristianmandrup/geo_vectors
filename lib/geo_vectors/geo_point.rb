@@ -2,15 +2,24 @@ class GeoPoint
   include GeoCalc
   
   def + *args
-    vec = create_vector *args
-    vec.add_to_point self
+    self.dup.add! *args
   end
   alias_method :add, :+
   alias_method :<<, :+
   
   def add! *args
-    vec = create_vector *args
-    vec.add_to_point! self if vec
+    vec = GeoVector::Parser.create_vector *args
+    vec.add_to_point! self
+  end  
+
+  def - *args
+    self.dup.sub! *args
+  end
+  alias_method :sub, :-
+  
+  def sub! *args
+    vec = GeoVector::Parser.create_vector *args
+    vec.sub_from_point! self
   end  
 
   def vector
@@ -21,10 +30,4 @@ class GeoPoint
     self
   end
   
-  protected
-  
-  def create_vector *args
-    return args[0] if args[0].kind_of?(GeoVector) && args.size == 1
-    GeoPoint.new(*args).vector
-  end
 end

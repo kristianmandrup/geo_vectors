@@ -34,7 +34,8 @@ module GeoDirection
   end  
 
   def to_bearing_vector direction, distance
-    BearingVector.new dir_to_bearing(direction), distance
+    distance, direction = [direction, distance] if direction.kind_of?(GeoDistance) || distance.kind_of?(Symbol)
+    BearingVector.new distance, dir_to_bearing(direction)
   end
 
   def to_point_vector direction, distance

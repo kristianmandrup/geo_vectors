@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class GeoDirectionClass
-  extend GeoDirection::Methods
+  extend GeoDirection
 end
 
 class Fixnum
@@ -47,12 +47,11 @@ describe GeoDirection do
 
       describe '#to_bearing_vector' do
         it 'should direction and distance to a bearing vector' do
-          bvec = @gd.to_bearing_vector(:N, 2.kms)
-          puts bvec.inspect
+          bvec = @gd.to_bearing_vector(:N, 2.km)
           bvec.should be_a(BearingVector)
           bvec.bearing.should == 90
-          # bvec.distance.unit == :km
-          # bvec.distance.in_meters.should == 2000          
+          bvec.distance.unit == :kms
+          bvec.distance.in_meters.should == 2000          
         end
       end
 
