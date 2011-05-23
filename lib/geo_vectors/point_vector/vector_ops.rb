@@ -9,19 +9,13 @@ class PointVector < GeoVector
     end
 
     def add *args
-      vector = GeoVector::Parser.create_vector *args
-      case vector
-      when PointVector
-        add_to_point vector
-      else
-        GeoVectors.new self, vector
-      end
+      self.dup.add! *args 
     end
     alias_method :<<, :add
     alias_method :+,  :add
 
-    def add! vector
-      raise ArgumentException, "The object added must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)
+    def add! *args
+      vector = GeoVector::Parser.create_vector *args
       case vector
       when PointVector
         v2 = add_to_point vector
@@ -32,13 +26,12 @@ class PointVector < GeoVector
       end
     end
 
-    def sub vector
-      raise ArgumentException, "The object subtracted must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)    
-      add vector.reverse
+    def sub *args
+      self.dup.sub! *args
     end
 
-    def sub! vector
-      raise ArgumentException, "The object subtracted must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)    
+    def sub! *args
+      vector = GeoVector::Parser.create_vector *args
       add! vector.reverse
     end
   end
