@@ -1,16 +1,24 @@
 require 'geo_vectors/geo_vector'
 require 'sugar-high/kind_of'
 require 'proxy_party'
+require 'geo_vectors/point_vector/vector_ops'
+require 'geo_vectors/point_vector/point_ops'
 
 class PointVector < GeoVector
   include GeoCalc
+  include VectorOps
+  include PointOps
 
   attr_accessor :point
   proxy :point
   
   def initialize *args
-    args = normalize_points(args[0], args[1]) if args.only_kinds_of?(GeoPoint) && args.size == 2
-    @point = GeoPoint.new *args
+    if args[0].kind_of?(GeoPoint) && args.size == 1
+      @point = args[0] 
+    else
+      args = normalize_points(args[0], args[1]) if args.only_kinds_of?(GeoPoint) && args.size == 2
+      @point = GeoPoint.new *args
+    end
   end
   
   def point= *args
@@ -28,51 +36,13 @@ class PointVector < GeoVector
   def x; lng; end
   def y; lat; end
 
-  def add vector
-    raise ArgumentException, "The object added must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)
-    case vector
-    when PointVector
-      add_to_point vector
-    else
-      GeoVectors.new self, vector
-    end
-  end
-  alias_method :<<, :add
-  alias_method :+,  :add
-
-  def add! vector
-    raise ArgumentException, "The object added must be a GeoVector, was: #{vector}" if !vector.kind_of?(GeoVector)
-    case vector
-    when PointVector
-      v2 = add_to_point vector
-      self.point = v2.to_arr
-      self      
-    else
-      GeoVectors.new self, vector
-    end
+  def reverse
+    self.dup.reverse!
   end
 
-  def random_vector                             
-    lat_max = point.lat.abs
-    lng_max = point.lng.abs    
-    rand_lat = rand(lat_max * 2) - lat_max
-    rand_lng = rand(lng_max * 2) - lng_max
-    PointVector.new [rand_lat, rand_lng]
-  end
-
-  # return new point from adding vector to point
-  def add_to_point point
-    dest = point.dup
-    dest.lat = lat + point.lat 
-    dest.lng = lng + point.lng
-    dest
-  end
-
-  # add vector directly to point (destructive update)
-  def add_to_point! point
-    point.lat = lat + point.lat 
-    point.lng = lng + point.lng
-    point
+  def reverse!
+    self.point.reverse_point!
+    self    
   end
 
   protected

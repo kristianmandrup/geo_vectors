@@ -75,6 +75,9 @@ class GeoDistance
     }
   end   
 
+  def random
+    rand(number.to_f * 100) / 100.0
+  end
 
   def radians_to unit
     check_unit! unit

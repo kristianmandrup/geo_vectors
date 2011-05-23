@@ -32,7 +32,10 @@ describe GeoVector do
       let (:vec) { vec = [4, 3].vector }
       
       it 'should Subtract one geo vector' do
-        v2 = vec - [1, 2].vector
+        v = [1, 2].vector
+        pp v
+        v2 = vec - v
+        v2.should_not == vec
         v2.lat.should == 3
         v2.lng.should == 1
       end
@@ -42,22 +45,25 @@ describe GeoVector do
       let (:vec) { vec = [4, 3].vector }
       
       it 'should Subtract one geo vector' do
-        vec.sub!([1,2].vector)
+        v2 = vec.sub!([1,2].vector)
+        v2.should == vec        
         vec.lat.should == 3
         vec.lng.should == 1
       end
 
-      describe 'converting args to vector' do
-        it 'should Subtract after converting number args to geo vector' do
-          vec.add!(1,2)
-          vec.lat.should == 3
-          vec.lng.should == 1
-        end
+      pending 'todo' do
+        describe 'converting args to vector' do
+          it 'should Subtract after converting number args to geo vector' do
+            vec.sub!(1,2)
+            vec.lat.should == 3
+            vec.lng.should == 1
+          end
 
-        it 'should Subtract one geo vector' do
-          vec.add!("1,2")
-          vec.lat.should == 3
-          vec.lng.should == 1
+          it 'should Subtract one geo vector' do
+            vec.sub!("1,2")
+            vec.lat.should == 3
+            vec.lng.should == 1
+          end
         end
       end
     end

@@ -13,6 +13,10 @@ class DirectionVector < GeoVector
     @direction  = get_valid_direction dir
   end
 
+  def random_vector                             
+    DirectionVector.new distance.random, random_direction
+  end
+
   def direction= dir
     @direction = get_valid_direction dir
   end

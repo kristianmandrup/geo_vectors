@@ -6,6 +6,10 @@ module GeoDirection
   def directions
     [:N, :S, :E, :W, :NW, :NE, :SW, :SE]
   end
+
+  def random_direction
+    directions[rand(directions.size)]
+  end
   
   def valid_direction? dir
     valid_directions.include? dir

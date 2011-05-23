@@ -52,6 +52,13 @@ describe GeoDistance do
       end
     end
 
+    describe '#random' do
+      it "should be that a 5.km random distance is between 0 - 5000 meters" do
+        rand_dist = 5.km.random
+        rand_dist.in_meters.should be_between(0, 5000)
+      end
+    end
+
     describe '#in_kms' do
       it "should be that 5000 meters in kms is 5" do
         dist = 5000.meters

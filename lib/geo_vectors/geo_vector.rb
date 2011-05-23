@@ -21,8 +21,14 @@ class GeoVector
   end
   
   def scale scalar
-    lat = lat * scalar
-    lng = lng * scalar
+    vec = self.dup
+    vec.scale! scalar
+  end      
+
+  def scale! scalar
+    self.lat = self.lat * scalar
+    self.lng = self.lng * scalar
+    self
   end      
 
   def * scalar

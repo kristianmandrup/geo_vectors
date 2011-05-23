@@ -9,11 +9,11 @@
 
 require 'spec_helper'
 
-describe GeoVector do
+describe PointVector do
   describe 'Scaling' do
+    let (:vec) { [4, 2].geo_vector }
+
     describe '#* operator' do
-      let (:vec) { vec = [4, 2].geo_vector }
-      
       it 'should scale the vector 2 times bigger (* 2)' do
         v2 = vec * 2
         v2.lat.should == 8

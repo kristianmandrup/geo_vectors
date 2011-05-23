@@ -16,6 +16,10 @@ class GeoPoint
   def vector
     to_lat_lng.vector
   end
+
+  def geo_point
+    self
+  end
   
   protected
   

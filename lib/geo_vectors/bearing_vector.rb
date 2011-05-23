@@ -12,7 +12,11 @@ class BearingVector < GeoVector
     dist, bearing = [bearing, dist] if bearing.kind_of? GeoDistance
     @bearing   = bearing.normalize_deg
     @distance  = extract_distance dist
-  end      
+  end
+
+  def random_vector                             
+    BearingVector.new distance.random, random_bearing
+  end
 
   def add_to_point! point
     dest_point = point.destination_point bearing, distance.in_kms
@@ -41,4 +45,10 @@ class BearingVector < GeoVector
   def to_s
     "#{distance}, bearing: #{bearing} degrees"
   end
+  
+  protected
+  
+  def random_bearing
+    rand(360 * 100)  / 100    
+  end  
 end
