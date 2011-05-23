@@ -9,31 +9,43 @@ class GeoVector
   def initialize
     @unit = :degrees
   end
-  
-  def add vector
-    raise '#add method must be implemented by including class'
+
+  def add! vector
+    raise '#add! method must be implemented by including class'
   end
+
+  def scale! scalar
+    raise '#scale! method must be implemented by including class'
+  end
+
+  def direction
+    raise '#distance method must be implemented by including class'
+  end
+
+  def distance
+    raise '#distance method must be implemented by including class'
+  end
+
+  def add vector
+    self.dup.add! vector
+  end
+  
   alias_method :<<, :add
   alias_method :+,  :add
 
-  def - vector
-    add vector.reverse
+  def sub! vector
+    add! vector.reverse
   end
+
+  def sub vector
+    self.dup.sub vector
+  end
+  alias_method :-,  :sub
   
   def scale scalar
-    vec = self.dup
-    vec.scale! scalar
+    self.dup.scale! scalar
   end      
-
-  def scale! scalar
-    self.lat = self.lat * scalar
-    self.lng = self.lng * scalar
-    self
-  end      
-
-  def * scalar
-    scale scalar
-  end 
+  alias_method :*,  :scale
   alias_method :enhance, :*
   alias_method :grow_by, :*
 

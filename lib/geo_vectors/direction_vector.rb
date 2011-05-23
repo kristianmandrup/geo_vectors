@@ -24,6 +24,10 @@ class DirectionVector < GeoVector
   def distance= dist
     @distance = extract_distance dist
   end
+
+  def scale! scale
+    @distance *= scale 
+  end
   
   def unit
     distance.unit

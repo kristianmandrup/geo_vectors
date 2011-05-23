@@ -20,6 +20,19 @@ class PointVector < GeoVector
       @point = GeoPoint.new *args
     end
   end
+
+  def direction
+    brng = bearing
+    begin
+      bearing_to_dir brng
+    rescue
+      brng
+    end
+  end     
+
+  def bearing
+    origin.bearing_to(point).to_precision(2).to_f
+  end
   
   def point= *args
     @point = GeoPoint.new *args
@@ -35,6 +48,12 @@ class PointVector < GeoVector
 
   def x; lng; end
   def y; lat; end
+
+  def scale! scalar
+    self.lat = self.lat * scalar
+    self.lng = self.lng * scalar
+    self
+  end      
 
   def reverse
     self.dup.reverse!

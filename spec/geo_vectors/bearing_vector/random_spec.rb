@@ -9,7 +9,8 @@ describe GeoVector do
         it 'should return a random vector of up to 4.kms with any bearing' do
           rvec = vec.random_vector
           rvec.distance.in_kms.should be_between(0, 4)
-          rvec.bearing.should be_between(-180, 180)
+          puts "random bearing: #{rvec.bearing}"
+          rvec.bearing.should be_between(0, 360)
         end
       end
     end

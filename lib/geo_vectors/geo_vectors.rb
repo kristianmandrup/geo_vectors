@@ -14,7 +14,16 @@ class GeoVectors < Array
     @vectors = vectors
   end
 
-  def each
+  # iterate each and call direction
+  def directions
+    vectors.map {|v| v.direction }
+  end
+
+  def distances
+    vectors.map {|v| v.distance }
+  end
+
+  def each &block
     vectors.each { |v| yield v }
   end
 
@@ -39,6 +48,24 @@ class GeoVectors < Array
     reverse_directions.add_to_point! point
   end
 
+  def scale! scalar
+    each {|v| v.scale! scalar }
+    self
+  end      
+
+  def scale scalar
+    self.dup.scale! scalar
+  end      
+  alias_method :*,  :scale
+  alias_method :enhance, :*
+  alias_method :grow_by, :*
+
+  def / scalar
+    scale (1.0 / scalar)
+  end
+  alias_method :reduce, :/    
+
+
   def reverse_directions
     vectors.each do |v|
       v.reverse!
@@ -47,7 +74,7 @@ class GeoVectors < Array
   end
 
   def to_s
-    inject([]) do |res, v|
+    vectors.inject([]) do |res, v|
       res << v.to_s
       res
     end.join(' ; ')

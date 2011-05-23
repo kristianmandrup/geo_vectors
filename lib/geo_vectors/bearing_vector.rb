@@ -14,6 +14,14 @@ class BearingVector < GeoVector
     self.distance  = dist
   end
 
+  def direction
+    begin
+      bearing_to_dir bearing
+    rescue
+      bearing
+    end
+  end     
+
   def random_vector                             
     BearingVector.new distance.random, random_bearing
   end
@@ -46,6 +54,10 @@ class BearingVector < GeoVector
     reverse_bearing! 
     self    
   end
+
+  def scale! scale
+    @distance = distance * scale 
+  end
   
   def unit
     distance.unit
@@ -70,6 +82,6 @@ class BearingVector < GeoVector
   end
   
   def random_bearing
-    rand(360 * 100)  / 100    
+    rand(360 * 100)  / 100
   end  
 end
