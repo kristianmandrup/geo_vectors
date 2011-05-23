@@ -52,6 +52,14 @@ class PointVector < GeoVector
     end
   end
 
+  def random_vector                             
+    lat_max = point.lat.abs
+    lng_max = point.lng.abs    
+    rand_lat = rand(lat_max * 2) - lat_max
+    rand_lng = rand(lng_max * 2) - lng_max
+    PointVector.new [rand_lat, rand_lng]
+  end
+
   # return new point from adding vector to point
   def add_to_point point
     dest = point.dup

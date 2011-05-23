@@ -6,6 +6,12 @@ describe PointVector do
       vec = [1, 2].point_vector
       vec.should be_a PointVector
     end
+    
+    it 'should set origin at 0,0' do
+      origin = [0, 0].geo_point
+      origin.lat.should == 0       
+      origin.lng.should == 0
+    end
   end
 
   context 'Simple vector at (1, 2) - x,y arg' do
@@ -69,17 +75,17 @@ describe PointVector do
     let(:vector) { PointVector.new [1, 2].to_point }
 
     describe '#length' do  
-      it 'should have a distance between 1 and 2' do
+      it 'should have a distance between 240 - 250 km' do
         kms = vector.length
-        kms.should be_between(240, 260)
+        kms.should be_between(240, 250)
       end
     end
   
     describe '#distance' do  
-      it 'should have a distance between 1 and 2' do
+      it 'should have a distance between 240 - 250 km' do
         dist = vector.distance
         dist.should be_a GeoDistance
-        dist.in_meters.should be_between(240000, 260000)
+        dist.in_meters.should be_between(240000, 250000)
       end
     end
   
@@ -88,7 +94,7 @@ describe PointVector do
         @vec = PointVector.new [1, 2].to_point
       end
       
-      it 'should have a distance between 1 and 2' do        
+      it 'should set a new vector point of 2,3' do        
         @vec.y.should == 1
         @vec.x.should == 2
         @vec.point = 2, 3
@@ -96,7 +102,7 @@ describe PointVector do
         @vec.x.should == 3
       end
       
-      it 'should return a new distance between 3 and 5' do
+      it 'should return a new distance between 240 - 250' do
         kms = @vec.distance.in_kms
         kms.should be_between(240, 250)
       end
