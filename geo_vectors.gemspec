@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "README.textile",
     "Rakefile",
     "VERSION",
+    "geo_vectors.gemspec",
     "lib/geo_vectors.rb",
     "lib/geo_vectors/bearing_vector.rb",
     "lib/geo_vectors/core_ext.rb",
