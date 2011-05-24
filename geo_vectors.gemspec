@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{geo_vectors}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Kristian Mandrup}]
-  s.date = %q{2011-05-23}
+  s.date = %q{2011-05-24}
   s.description = %q{Works with geo_calc and other geo libraries}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
     "lib/geo_vectors/geo_point.rb",
     "lib/geo_vectors/geo_vector.rb",
     "lib/geo_vectors/geo_vectors.rb",
+    "lib/geo_vectors/macros.rb",
     "lib/geo_vectors/point_vector.rb",
     "lib/geo_vectors/point_vector/point_ops.rb",
     "lib/geo_vectors/point_vector/vector_ops.rb",
@@ -40,23 +41,27 @@ Gem::Specification.new do |s|
     "lib/geo_vectors/util/calc.rb",
     "lib/geo_vectors/util/geo_direction.rb",
     "lib/geo_vectors/util/geo_distance.rb",
+    "lib/geo_vectors/util/geo_distance/units.rb",
     "lib/geo_vectors/util/geo_units.rb",
     "lib/geo_vectors/vector_parser.rb",
-    "spec/geo_vectors/API proposal guide.txt",
     "spec/geo_vectors/bearing_vector/add_vector_spec.rb",
+    "spec/geo_vectors/bearing_vector/point_add_spec.rb",
     "spec/geo_vectors/bearing_vector/random_spec.rb",
+    "spec/geo_vectors/bearing_vector/scale_spec.rb",
     "spec/geo_vectors/bearing_vector_spec.rb",
     "spec/geo_vectors/direction_vector/add_vector_spec.rb",
     "spec/geo_vectors/direction_vector/point_add_spec.rb",
     "spec/geo_vectors/direction_vector/random_spec.rb",
+    "spec/geo_vectors/direction_vector/scale_spec.rb",
     "spec/geo_vectors/direction_vector/subtract_vector_spec.rb",
     "spec/geo_vectors/direction_vector_spec.rb",
     "spec/geo_vectors/geo_vectors_spec.rb",
+    "spec/geo_vectors/macros_spec.rb",
     "spec/geo_vectors/point_vector/add_vector_spec.rb",
     "spec/geo_vectors/point_vector/initializer_spec.rb",
     "spec/geo_vectors/point_vector/point_add_spec.rb",
     "spec/geo_vectors/point_vector/random_spec.rb",
-    "spec/geo_vectors/point_vector/scale_vector_spec.rb",
+    "spec/geo_vectors/point_vector/scale_spec.rb",
     "spec/geo_vectors/point_vector/subtract_vector_spec.rb",
     "spec/geo_vectors/point_vector_spec.rb",
     "spec/geo_vectors/util/geo_direction_spec.rb",
@@ -67,7 +72,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/kristianmandrup/geo_vectors}
   s.licenses = [%q{MIT}]
   s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.0}
+  s.rubygems_version = %q{1.8.3}
   s.summary = %q{Geo vector library for applying vectors to GeoPoints and for basic vector math}
 
   if s.respond_to? :specification_version then
