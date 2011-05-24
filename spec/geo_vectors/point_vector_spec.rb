@@ -1,14 +1,9 @@
 require 'spec_helper'
 
 describe PointVector do
-  describe '#initialize' do
-    it 'should initialize from an Array' do
-      vec = [1, 2].point_vector
-      vec.should be_a PointVector
-    end
-    
+  describe '#initialize' do    
     it 'should set origin at 0,0' do
-      origin = [0, 0].geo_point
+      origin = PointVector.origin
       origin.lat.should == 0       
       origin.lng.should == 0
     end
@@ -72,7 +67,7 @@ describe PointVector do
   end
 
   context 'Simple vector at (1, 2) - GeoPoint arg' do
-    let(:vector) { PointVector.new [1, 2].to_point }
+    let(:vector) { PointVector.new [1, 2] }
 
     describe '#length' do  
       it 'should have a distance between 240 - 250 km' do
@@ -91,7 +86,7 @@ describe PointVector do
   
     describe '#point=' do
       before do
-        @vec = PointVector.new [1, 2].to_point
+        @vec = PointVector.new [1, 2]
       end
       
       it 'should set a new vector point of 2,3' do        

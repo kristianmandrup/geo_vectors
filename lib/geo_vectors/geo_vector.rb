@@ -46,8 +46,6 @@ class GeoVector
     self.dup.scale! scalar
   end      
   alias_method :*,  :scale
-  alias_method :enhance, :*
-  alias_method :grow_by, :*
 
   def / scalar
     scale (1.0 / scalar)

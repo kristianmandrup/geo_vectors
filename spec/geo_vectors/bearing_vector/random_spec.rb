@@ -4,7 +4,7 @@ describe GeoVector do
   describe 'Random module' do
     context 'Bearing vector 4.km at 52 deg' do
       describe '#random_vector' do      
-        let (:vec) { vec = [4.km, 52].b_vector }
+        let (:vec) { vec = [4.km, 52].vector }
         
         it 'should return a random vector of up to 4.kms with any bearing' do
           rvec = vec.random_vector

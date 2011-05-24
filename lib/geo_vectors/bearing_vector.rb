@@ -39,6 +39,7 @@ class BearingVector < GeoVector
 
   # normalize to within 0-360 degrees
   def bearing= brng
+    raise ArgumentError, "Not a valid bearing: #{brng}. Did you expect a DirectionVector?" if brng.kind_of? Symbol
     @bearing  = brng.normalize_degrees
   end
 

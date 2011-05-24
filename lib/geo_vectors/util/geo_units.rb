@@ -49,5 +49,5 @@ module GeoUnits
        :radians => 111170
       }
     end
-  end  
+  end    
 end

@@ -1,10 +1,11 @@
 require 'spec_helper'
+require 'geo_vectors/macros'
 
 describe GeoVector do
   describe 'Random module' do
     context 'Direction vector 4.km North' do
       describe '#random_vector' do      
-        let (:vec) { vec = [4.km, :north].d_vector }
+        let (:vec) { vec = [4.km, :north].vector }
         
         it 'should return a random vector of up to 4.kms in any direction' do
           rvec = vec.random_vector

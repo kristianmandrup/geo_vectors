@@ -21,6 +21,10 @@ class PointVector < GeoVector
     end
   end
 
+  def self.origin
+    [0, 0].geo_point
+  end
+
   def direction
     brng = bearing
     begin
@@ -79,7 +83,7 @@ class PointVector < GeoVector
   end
   
   def origin
-    [0, 0].geo_point
+    PointVector.origin    
   end
 end
 

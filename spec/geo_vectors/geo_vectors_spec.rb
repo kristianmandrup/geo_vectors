@@ -1,9 +1,10 @@
 require 'spec_helper'
+require 'geo_vectors/macros'
 
 describe GeoVectors do
   context 'an GeoVectors containing a PointVector v1, and a BearingVector v2' do
     let (:v1) { [1, 2].vector }
-    let (:v2) { [30, 4.km].b_vector }
+    let (:v2) { [30, 4.km].vector }
     let (:vecs) { GeoVectors.new v1, v2 }
     let (:point) { [3, 4].geo_point }
 

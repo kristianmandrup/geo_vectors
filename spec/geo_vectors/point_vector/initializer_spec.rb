@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'geo_vectors/macros'
 
 describe PointVector do
   describe '#initialize' do

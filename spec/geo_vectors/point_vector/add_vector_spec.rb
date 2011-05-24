@@ -44,52 +44,52 @@ describe PointVector do
   describe 'Vector on Vector Addition' do
     context 'Point vector (4, 2)' do
       describe '#+ operator' do      
-        let (:vec) { vec = [4, 2].vector }
+        let (:vec) { vec = PointVector.new 4, 2 }
         
         it 'should Add one geo vector' do
-          v2 = vec + [1, 2].vector
+          v2 = vec + PointVector.new(1, 2)
           v2.lat.should == 5
           v2.lng.should == 4
         end
       end #+
 
-      # describe '#add! operator' do      
-      #   let (:vec) { vec = [4, 2].vector }
-      #   
-      #   it 'should Add one geo vector' do
-      #     vec.add!([1,2].vector)
-      #     vec.lng.should == 4
-      #     vec.lat.should == 5
-      #   end
-      # 
-      #   describe 'converting args to vector' do
-      #     let (:vec) { vec = [4, 2].vector }
-      # 
-      #     it 'should Add after converting number args to geo vector' do
-      #       vec.add!(1,2)
-      #       vec.lat.should == 5
-      #       vec.lng.should == 4
-      #     end
-      # 
-      #     it 'should Add one geo vector' do
-      #       vec.add!("1,2")
-      #       vec.lat.should == 5
-      #       vec.lng.should == 4
-      #     end
-      #   end # add!
-      # end # point vector
-
-      describe '#add operator' do      
-        let (:vec) { vec = [4, 2].vector }
+      describe '#add! operator' do      
+        let (:vec) { vec = PointVector.new [4, 2] }
         
         it 'should Add one geo vector' do
-          v2 = vec.add([1,2].vector)
+          vec.add!( PointVector.new(1, 2))
+          vec.lng.should == 4
+          vec.lat.should == 5
+        end
+      
+        describe 'converting args to vector' do
+          let (:vec) { vec = PointVector.new [4, 2] }
+      
+          it 'should Add after converting number args to geo vector' do
+            vec.add!(1,2)
+            vec.lat.should == 5
+            vec.lng.should == 4
+          end
+      
+          it 'should Add one geo vector' do
+            vec.add!("1,2")
+            vec.lat.should == 5
+            vec.lng.should == 4
+          end
+        end # add!
+      end # point vector
+
+      describe '#add operator' do      
+        let (:vec) { vec = PointVector.new [4, 2] }
+        
+        it 'should Add one geo vector' do
+          v2 = vec.add(PointVector.new 1, 2)
           v2.lng.should == 4
           v2.lat.should == 5
         end
       
         describe 'converting args to vector' do
-          let (:vec) { vec = [4, 2].vector }
+          let (:vec) { vec = PointVector.new [4, 2] }
 
           it 'should Add after converting number args to geo vector' do
             v2 = vec.add(1,2)
@@ -104,32 +104,31 @@ describe PointVector do
           end
         end # add!
       end # point vector
-
       
-      # context 'Bearing vector (60, 2.km)' do
-      #   let(:vec) { vec = [4, 2].vector }        
-      #   let(:brng_vec) { BearingVector.new 60, 2.km }
-      #   
-      #   describe '#add!' do
-      #     it 'should raise error when applying bearing vector directly on a point vector' do
-      #       lambda {vec.apply!(brng_vec)}.should raise_error
-      #     end
-      #   end
-      #   
-      #   describe '#+ (add)' do
-      #     it 'should add the vector and create a new PointVectors from result' do
-      #       vectors = vec + brng_vec
-      #       vectors.should be_a GeoVectors
-      #     end
-      #   end
-      # 
-      #   describe '#<< (push)' do
-      #     it 'should add the vector and create a new point from result' do
-      #       vectors = vec << brng_vec
-      #       vectors.should be_a GeoVectors
-      #     end
-      #   end        
-      # end      
+      context 'Bearing vector (60, 2.km)' do
+        let(:vec) { vec = PointVector.new [4, 2] }        
+        let(:brng_vec) { BearingVector.new 60, 2.km }
+        
+        describe '#add!' do
+          it 'should raise error when applying bearing vector directly on a point vector' do
+            lambda {vec.apply!(brng_vec)}.should raise_error
+          end
+        end
+        
+        describe '#+ (add)' do
+          it 'should add the vector and create a new PointVectors from result' do
+            vectors = vec + brng_vec
+            vectors.should be_a GeoVectors
+          end
+        end
+      
+        describe '#<< (push)' do
+          it 'should add the vector and create a new point from result' do
+            vectors = vec << brng_vec
+            vectors.should be_a GeoVectors
+          end
+        end        
+      end      
     end
   end
 end
