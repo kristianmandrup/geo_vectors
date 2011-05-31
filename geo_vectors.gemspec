@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{geo_vectors}
-  s.version = "0.5.1"
+  s.version = "0.5.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Kristian Mandrup}]
-  s.date = %q{2011-05-24}
+  s.date = %q{2011-05-31}
   s.description = %q{Works with geo_calc and other geo libraries}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    "Changelog.textile",
     "Distance calc notes.txt",
     "Gemfile",
     "LICENSE.txt",
