@@ -16,6 +16,10 @@ Then run bundler from command line to bundle the gem with the app:
 
 @$ bundle@
 
+h2. Status and updates
+
+See the _Changelog_ for recent changes and updates!
+
 h2. Intro
 
 A GeoVector can be any of:

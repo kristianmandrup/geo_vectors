@@ -23,6 +23,10 @@ class GeoVectors < Array
     vectors.map {|v| v.distance }
   end
 
+  def total_distance unit = :km
+    distances.map(&:"#{unit}").sum
+  end
+
   def each &block
     vectors.each { |v| yield v }
   end
@@ -72,6 +76,12 @@ class GeoVectors < Array
     end    
     self
   end
+
+  def size
+    vectors.size
+  end
+  alias_method :length, :size  
+  alias_method :count, :size
 
   def to_s
     vectors.inject([]) do |res, v|

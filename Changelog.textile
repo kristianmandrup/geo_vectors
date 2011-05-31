@@ -1,0 +1,6 @@
+h1. Changelog
+
+h3. 31 May, 2011
+
+- Added #total_distance(unit) and #size, #count and #length to GeoVectors
+- Release 0.5.2 

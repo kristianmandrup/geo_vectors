@@ -55,6 +55,13 @@ describe GeoVectors do
       end
     end
 
+    describe '#total_distance' do
+      it 'should return total distances of all vectors' do
+        vecs.total_distance(:km).should > 250
+        vecs.total_distance(:miles).should be_between(150, 160)
+      end
+    end
+
     describe '#scale' do
       it 'should return distances of all vectors' do
         big_vecs = vecs.scale 2
