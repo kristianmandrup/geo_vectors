@@ -1,6 +1,19 @@
 require 'geo_vectors/util/geo_units'
 require 'geo_vectors/util/geo_distance/units'
 
+module NumericCheckExt
+  def is_numeric? arg
+    arg.is_a? Numeric
+  end  
+
+  alias_method :is_num?, :is_numeric?
+  
+  def check_numeric! arg
+    raise ArgumentError, "Argument must be Numeric" if !is_numeric? arg
+  end  
+end
+
+
 class GeoDistance
   include NumericCheckExt
   include GeoUnits 

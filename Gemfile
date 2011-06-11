@@ -1,8 +1,9 @@
 source "http://rubygems.org"
 
-gem 'geo_calc',     '~> 0.7.0'
-gem 'proxy_party',  '~> 0.2.1'
-gem 'sugar-high',   '>= 0.4.5'
+gem 'geo_calc',       '~> 0.7.0'
+gem 'proxy_party',    '~> 0.2.1'
+gem 'sugar-high',     '>= 0.4.5'
+gem 'activesupport',  '>=3'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

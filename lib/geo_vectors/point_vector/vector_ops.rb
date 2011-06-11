@@ -19,7 +19,7 @@ class PointVector < GeoVector
       case vector
       when PointVector
         v2 = add_to_point vector
-        self.point = v2.to_arr
+        self.point = v2.to_a
         self      
       else
         GeoVectors.new self, vector
