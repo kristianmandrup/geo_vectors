@@ -1,3 +1,4 @@
+# extends GeoPoint with methods to add and subtract vectors etc.
 class GeoPoint  
   include GeoCalc
   
@@ -28,6 +29,5 @@ class GeoPoint
 
   def geo_point
     self
-  end
-  
+  end  
 end

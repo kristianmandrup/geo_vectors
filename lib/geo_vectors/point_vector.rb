@@ -4,6 +4,8 @@ require 'proxy_party'
 require 'geo_vectors/point_vector/vector_ops'
 require 'geo_vectors/point_vector/point_ops'
 
+require 'geo_point'
+
 class PointVector < GeoVector
   include GeoCalc
   include VectorOps
@@ -20,7 +22,7 @@ class PointVector < GeoVector
       @point = GeoPoint.new *args
     end
   end
-
+  
   def self.origin
     [0, 0].geo_point
   end
